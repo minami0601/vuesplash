@@ -15,6 +15,7 @@ class PhotoController extends Controller
     {
         // 認証が必要
         $this->middleware('auth')->except(['index', 'download']);
+
     }
 
     /**
