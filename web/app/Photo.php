@@ -22,6 +22,8 @@ class Photo extends Model
         'url',
     ];
 
+    protected $perPage = 15;
+
     /** IDの桁数 */
     const ID_LENGTH = 12;
 
