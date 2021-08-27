@@ -27,6 +27,7 @@
             >
                 <i class="icon ion-md-arrow-round-down"></i>Download
             </a>
+            <button v-if="isLogin" v-on:click="deletePhoto" class="btn btn-danger py-1">Delete</button>
             <h2 class="photo-detail__title">
                 <i class="icon ion-md-chatboxes"></i>Comments
             </h2>
@@ -148,6 +149,22 @@ export default {
 
             this.photo.likes_count = this.photo.likes_count - 1
             this.photo.liked_by_user = false
+        },
+        async deletePhoto() {
+            if(confirm("削除がしますか？")){
+                const response = await axios.delete(`/api/photos/${this.id}`)
+
+                if (response.status !== OK) {
+                    this.$store.commit('error/setCode', response.status)
+                    return false
+                }
+                this.$store.commit('message/setContent', {
+                    content: '写真を削除しました',
+                    timeout: 6000
+                })
+
+                this.$router.push(`/`)
+            }
         }
     },
     watch: {
