@@ -2728,6 +2728,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: {
@@ -2913,27 +2914,72 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
           }
         }, _callee4);
       }))();
+    },
+    deletePhoto: function deletePhoto() {
+      var _this5 = this;
+
+      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee5() {
+        var response;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee5$(_context5) {
+          while (1) {
+            switch (_context5.prev = _context5.next) {
+              case 0:
+                if (!confirm("削除がしますか？")) {
+                  _context5.next = 9;
+                  break;
+                }
+
+                _context5.next = 3;
+                return axios["delete"]("/api/photos/".concat(_this5.id));
+
+              case 3:
+                response = _context5.sent;
+
+                if (!(response.status !== _util__WEBPACK_IMPORTED_MODULE_1__["OK"])) {
+                  _context5.next = 7;
+                  break;
+                }
+
+                _this5.$store.commit('error/setCode', response.status);
+
+                return _context5.abrupt("return", false);
+
+              case 7:
+                _this5.$store.commit('message/setContent', {
+                  content: '写真を削除しました',
+                  timeout: 6000
+                });
+
+                _this5.$router.push("/");
+
+              case 9:
+              case "end":
+                return _context5.stop();
+            }
+          }
+        }, _callee5);
+      }))();
     }
   },
   watch: {
     $route: {
       handler: function handler() {
-        var _this5 = this;
+        var _this6 = this;
 
-        return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee5() {
-          return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee5$(_context5) {
+        return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee6() {
+          return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee6$(_context6) {
             while (1) {
-              switch (_context5.prev = _context5.next) {
+              switch (_context6.prev = _context6.next) {
                 case 0:
-                  _context5.next = 2;
-                  return _this5.fetchPhoto();
+                  _context6.next = 2;
+                  return _this6.fetchPhoto();
 
                 case 2:
                 case "end":
-                  return _context5.stop();
+                  return _context6.stop();
               }
             }
-          }, _callee5);
+          }, _callee6);
         }))();
       },
       immediate: true
@@ -5340,6 +5386,17 @@ var render = function() {
                 _vm._v("Download\n        ")
               ]
             ),
+            _vm._v(" "),
+            _vm.isLogin
+              ? _c(
+                  "button",
+                  {
+                    staticClass: "btn btn-danger py-1",
+                    on: { click: _vm.deletePhoto }
+                  },
+                  [_vm._v("Delete")]
+                )
+              : _vm._e(),
             _vm._v(" "),
             _vm._m(0),
             _vm._v(" "),

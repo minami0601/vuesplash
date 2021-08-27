@@ -84,6 +84,15 @@ class PhotoController extends Controller
         return $photo ?? abort(404);
     }
 
+    public function destroy(string $id)
+    {
+        $photo = Photo::where('id', $id)->first();
+        $photo->delete();
+        Storage::cloud()->delete($photo->filename);
+
+        return response(200);
+    }
+
     public function download(Photo $photo)
     {
         // 写真の存在チェック
